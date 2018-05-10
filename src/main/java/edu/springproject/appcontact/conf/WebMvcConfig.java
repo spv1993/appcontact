@@ -33,8 +33,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	
 	@Value("${mcv.cache.period}")
 	private Integer mcvCachePeriod;
-	
-    // Static Resource Config 
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(mvcCssHandler)
