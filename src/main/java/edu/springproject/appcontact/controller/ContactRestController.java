@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.springproject.appcontact.exception.HttpStatusContactNotFoundException;
+import edu.springproject.appcontact.exception.ContactNotFoundException;
 import edu.springproject.appcontact.model.Contact;
 import edu.springproject.appcontact.service.ContactService;
 
@@ -32,7 +32,7 @@ public class ContactRestController {
 
 	@GetMapping("/contacts/{contactId}")
 	public Contact contact(@PathVariable("contactId") long contactId)
-			throws HttpStatusContactNotFoundException {
+			throws ContactNotFoundException {
 		
 		entryIsExists(contactId);
 		return service.getContact(contactId);
@@ -45,7 +45,7 @@ public class ContactRestController {
 
 	@PutMapping("/contacts/{contactId}")
 	public void updateContact(@RequestBody Contact contact)
-			throws HttpStatusContactNotFoundException {
+			throws ContactNotFoundException {
 		
 		entryIsExists(contact.getId());
 		service.updateContact(contact);
@@ -53,17 +53,17 @@ public class ContactRestController {
 
 	@DeleteMapping("contacts/{contactId}")
 	public void deleteContact(@PathVariable("contactId") long contactId)
-			throws HttpStatusContactNotFoundException {
+			throws ContactNotFoundException {
 		
 		entryIsExists(contactId);
 		service.removeContact(contactId);
 	}
 
 	private void entryIsExists(long contactId) 
-			throws HttpStatusContactNotFoundException {
+			throws ContactNotFoundException {
 		
 		if(!service.contactIsExists(contactId)) {
-			throw new HttpStatusContactNotFoundException(contactId);
+			throw new ContactNotFoundException(contactId);
 		}
 	}
 }
