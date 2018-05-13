@@ -11,13 +11,13 @@ public class ContactMapper implements RowMapper<Contact> {
 
 	@Override
 	public Contact mapRow(ResultSet rs, int rowNum) throws SQLException {
-		Contact contact = new Contact();
-		contact.setId(rs.getLong("contact_id"));
-		contact.setFirstName(rs.getString("first_name"));
-		contact.setLastName(rs.getString("last_name"));
-		contact.setPhone(rs.getString("phone"));
-		contact.setEmail(rs.getString("email"));
-		return contact;
+		Long id = rs.getLong("contact_id");
+		String fname = rs.getString("first_name");
+		String lname = rs.getString("last_name");
+		String phone = rs.getString("phone");
+		String email = rs.getString("email");
+
+		return new Contact(id, fname, lname, phone, email);
 	}
 
 }

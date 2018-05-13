@@ -19,6 +19,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     
     <springframework.version>4.3.1.RELEASE</springframework.version>
+    <org.springframework.security.version>3.2.3.RELEASE</org.springframework.security.version>
   </properties>
 
 	
@@ -62,12 +63,14 @@
 		<version>9.0.2</version>
 	</dependency>
     
+    <!-- Использование Тегов -->
 	<dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>jstl</artifactId>
         <version>1.2</version>
     </dependency>
     
+    <!-- Servlet API для tomcat -->
     <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>javax.servlet-api</artifactId>
@@ -75,19 +78,27 @@
         <scope>provided</scope>
     </dependency>
     
+    <!-- JavaServer Pages API для tomcat -->
     <dependency>
-          <groupId>javax.servlet.jsp</groupId>
-          <artifactId>jsp-api</artifactId>
-          <version>2.2</version>
-          <scope>provided</scope>
-      </dependency>
-      
+         <groupId>javax.servlet.jsp</groupId>
+         <artifactId>jsp-api</artifactId>
+         <version>2.2</version>
+         <scope>provided</scope>
+     </dependency>
+	
+	<!-- Конвертирование ответа в Json -->
+	<dependency>
+	   <groupId>com.fasterxml.jackson.core</groupId>
+	   <artifactId>jackson-databind</artifactId>
+	   <version>2.8.3</version>
+	</dependency>
+	
     <!-- Тесты -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.11</version>
+		<scope>test</scope>
     </dependency>
     
   </dependencies>

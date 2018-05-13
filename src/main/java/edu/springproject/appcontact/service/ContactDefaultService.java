@@ -25,13 +25,20 @@ public class ContactDefaultService implements ContactService {
 	}
 
 	@Override
-	public void updateContact(Contact contact) {
-		dao.updateContact(contact);
+	public Contact updateContact(Contact contact) {
+		if(contact != null) {
+			dao.updateContact(contact);
+		}
+		return contact;
 	}
 
 	@Override
-	public void removeContact(long id) {
-		dao.removeContact(id);
+	public Contact removeContact(long id) {
+		Contact contact = dao.getContact(id);
+		if(contact != null) {
+			dao.removeContact(id);
+		}
+		return contact;
 	}
 
 	@Override

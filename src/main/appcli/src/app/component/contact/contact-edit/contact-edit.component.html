@@ -1,0 +1,30 @@
+<mat-card>
+  <form #contactForm="ngForm" (ngSubmit)="save(contact)">
+    <mat-card-header>
+      <mat-card-title><h2>{{contact.id ? 'Edit' : 'Add'}} Contact</h2></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <table flex cellspacing="3"><tr>
+	    <td><mat-form-field>
+	      <input matInput placeholder="Contact Name" [(ngModel)]="contact.firstName" required name="firstName" #firstName>
+	    </mat-form-field></td>
+	    <td><mat-form-field>
+	      <input matInput placeholder="Contact Last Name" [(ngModel)]="contact.lastName" required name="lastName" #lastName>
+	    </mat-form-field></td>
+	  </tr></table>
+	  <table flex cellspacing="3"><tr>
+	    <td><mat-form-field>
+	      <input matInput placeholder="Contact Phone" [(ngModel)]="contact.phone" required name="phone" #phone>
+	    </mat-form-field></td>
+	    <td><mat-form-field>
+	      <input matInput placeholder="Contact Email" [(ngModel)]="contact.email" required name="email" #email>
+	    </mat-form-field></td>
+	  </tr></table>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!contactForm.form.valid">Save</button>
+      <button mat-raised-button color="secondary" (click)="remove(contact.id)" *ngIf="contact.id" type="button">Delete</button>
+      <a mat-button routerLink="/contacts">Cancel</a>
+    </mat-card-actions>
+  </form>
+</mat-card>
