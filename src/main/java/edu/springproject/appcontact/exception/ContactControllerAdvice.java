@@ -10,18 +10,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-class ContactNotFoundExceptionExceptionHandlerAdvice {
-	
+class ContactControllerAdvice {
+
 	@ExceptionHandler
     @ResponseBody
-    ResponseEntity<ContactNotFoundException> handle(Exception exception) {
-		ContactNotFoundException body = new ContactNotFoundException(exception.getLocalizedMessage());
-        HttpStatus responseStatus = resolveAnnotatedResponseStatus(exception);
+    ResponseEntity<ContactNotFoundException> handle(Exception ex) {
+		String msg = ex.getLocalizedMessage();
+		ContactNotFoundException body = new ContactNotFoundException(msg);
+        HttpStatus responseStatus = resolveAnnotatedResponseStatus(ex);
         return new ResponseEntity<ContactNotFoundException>(body, responseStatus);
     }
     
-    HttpStatus resolveAnnotatedResponseStatus(Exception exception) {
-        ResponseStatus annotation = findMergedAnnotation(exception.getClass(), ResponseStatus.class);
+    HttpStatus resolveAnnotatedResponseStatus(Exception ex) {
+        ResponseStatus annotation = findMergedAnnotation(ex.getClass(), ResponseStatus.class);
         if (annotation != null) {
             return annotation.value();
         }
