@@ -10,10 +10,10 @@ import edu.springproject.appcontact.model.Contact;
 
 @Service
 public class ContactDefaultService implements ContactService {
-	
+
 	@Autowired
 	ContactDao dao;
-	
+
 	@Override
 	public List<Contact> getContacts() {
 		return dao.getContacts();
@@ -25,24 +25,22 @@ public class ContactDefaultService implements ContactService {
 	}
 
 	@Override
-	public Contact updateContact(Contact contact) {
-		if(contact != null) {
-			dao.updateContact(contact);
-		}
-		return contact;
+	public void updateContact(Contact contact) {
+		dao.updateContact(contact);
 	}
 
 	@Override
-	public Contact removeContact(long id) {
-		Contact contact = dao.getContact(id);
-		if(contact != null) {
-			dao.removeContact(id);
-		}
-		return contact;
+	public void removeContact(long id) {
+		dao.removeContact(id);
 	}
 
 	@Override
 	public Contact getContact(long id) {
 		return dao.getContact(id);
+	}
+
+	@Override
+	public boolean contactIsExists(long id) {
+		return dao.contactIsExists(id);
 	}
 }
