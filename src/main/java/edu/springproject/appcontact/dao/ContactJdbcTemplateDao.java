@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
-import edu.springproject.appcontact.exception.ContactNotFoundException;
 import edu.springproject.appcontact.model.Contact;
 import edu.springproject.appcontact.utils.ContactMapper;
 
@@ -58,35 +57,31 @@ public class ContactJdbcTemplateDao implements ContactDao {
 	}
 
 	@Override
-	public void updateContact(Contact contact) throws ContactNotFoundException {
+	public void updateContact(Contact contact) {
 		Long id = contact.getId();
 		String fname = contact.getFirstName();
 		String lname = contact.getLastName();
 		String phone = contact.getPhone();
 		String email = contact.getEmail();
-		
-		entryIsExists(id);
+
 		jdbcTemplate.update(SQL_UPDATE, fname, lname, phone, email, id);
 	}
 
 	@Override
-	public void removeContact(long contactId) throws ContactNotFoundException {
-		entryIsExists(contactId);
+	public void removeContact(long contactId) {
 		jdbcTemplate.update(SQL_DELETE, contactId);
 	}
 
 	@Override
-	public Contact getContact(long contactId) throws ContactNotFoundException {
-		entryIsExists(contactId);
+	public Contact getContact(long contactId) {
 		return jdbcTemplate.queryForObject(SQL_SELECT_SINGLE, 
 				new Object[] { contactId }, new ContactMapper());
 	}
 
-	private void entryIsExists(long contactId) throws ContactNotFoundException {
+	@Override
+	public boolean contactIsExists(long contactId) {
 		Integer entryCount = jdbcTemplate.queryForObject(SQL_COUNT, 
 				Integer.class, contactId);
-		if (entryCount == null || entryCount < 1) {
-			throw new ContactNotFoundException(contactId);
-		}
+		return entryCount != null && entryCount > 0;
 	}
 }

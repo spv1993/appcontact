@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.springproject.appcontact.dao.ContactDao;
-import edu.springproject.appcontact.exception.ContactNotFoundException;
 import edu.springproject.appcontact.model.Contact;
 
 @Service
@@ -26,17 +25,22 @@ public class ContactDefaultService implements ContactService {
 	}
 
 	@Override
-	public void updateContact(Contact contact) throws ContactNotFoundException {
+	public void updateContact(Contact contact) {
 		dao.updateContact(contact);
 	}
 
 	@Override
-	public void removeContact(long id) throws ContactNotFoundException {
+	public void removeContact(long id) {
 		dao.removeContact(id);
 	}
 
 	@Override
-	public Contact getContact(long id) throws ContactNotFoundException {
+	public Contact getContact(long id) {
 		return dao.getContact(id);
+	}
+
+	@Override
+	public boolean contactIsExists(long id) {
+		return dao.contactIsExists(id);
 	}
 }

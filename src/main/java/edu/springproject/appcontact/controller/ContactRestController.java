@@ -33,6 +33,7 @@ public class ContactRestController {
 	@GetMapping("/contacts/{contactId}")
 	public Contact contact(@PathVariable("contactId") long contactId)
 			throws ContactNotFoundException {
+		
 		return service.getContact(contactId);
 	}
 
@@ -44,12 +45,21 @@ public class ContactRestController {
 	@PutMapping("/contacts/{contactId}")
 	public void updateContact(@RequestBody Contact contact)
 			throws ContactNotFoundException {
+		
 		service.updateContact(contact);
 	}
 
 	@DeleteMapping("contacts/{contactId}")
 	public void deleteContact(@PathVariable("contactId") long contactId)
 			throws ContactNotFoundException {
+		
+		entryIsExists(contactId);
 		service.removeContact(contactId);
+	}
+
+	private void entryIsExists(long contactId) throws ContactNotFoundException {
+		if(!service.contactIsExists(contactId)) {
+			throw new ContactNotFoundException(contactId);
+		}
 	}
 }
