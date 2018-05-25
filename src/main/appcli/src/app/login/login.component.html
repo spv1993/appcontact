@@ -1,0 +1,20 @@
+<mat-card>
+	<form #loginForm="ngForm" (ngSubmit)="signin($event, user)">
+		<mat-card-header>
+      <mat-card-title><h2>Login</h2></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+			<mat-form-field>
+				<input matInput placeholder="username" [(ngModel)]="user.username" required name="username" #username>
+			</mat-form-field>
+			<br>
+			<mat-form-field>
+				<input matInput type="password" placeholder="password" [(ngModel)]="user.password" required name="password" #password>
+			</mat-form-field>
+		</mat-card-content>
+		<mat-card-actions>
+			<button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.form.valid">Submit</button>
+			<a mat-button routerLink="/signup">Click here to Signup</a>
+		</mat-card-actions>
+	</form>
+</mat-card>

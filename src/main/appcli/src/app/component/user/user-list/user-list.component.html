@@ -1,0 +1,11 @@
+<mat-card>
+  <mat-card-header>User List</mat-card-header>
+  <mat-card-content>
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let user of users" href="/users/{{user.id}}">
+        <h3 mat-line >{{user.username}}</h3>
+      </a>
+    </mat-nav-list>
+  </mat-card-content>
+  <button mat-fab color="primary" [routerLink]="['/users/new']">Add</button>
+</mat-card>

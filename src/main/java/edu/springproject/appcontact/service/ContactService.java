@@ -16,5 +16,5 @@ public interface ContactService {
 
 	public List<Contact> getContacts();
 	
-	public boolean contactIsExists(long id);
+	public boolean isContactExists(long id);
 }

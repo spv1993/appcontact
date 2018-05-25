@@ -99,17 +99,18 @@
         <version>${springsecurity.version}</version>
     </dependency>
     
-    <!-- Spring Security OAuth2-->
+    <!-- JSON Web Token Support -->
     <dependency>
-        <groupId>org.springframework.security.oauth</groupId>
-        <artifactId>spring-security-oauth2</artifactId>
-        <version>${springsecurityoauth2.version}</version>
-    </dependency>
+		<groupId>io.jsonwebtoken</groupId>
+		<artifactId>jjwt</artifactId>
+		<version>0.7.0</version>
+	</dependency>
     
   </dependencies>
 
   <build>
     <finalName>appcontact</finalName>
+    
     <plugins>
         <!-- Config: Maven Tomcat Plugin -->
         <!-- http://mvnrepository.com/artifact/org.apache.tomcat.maven/tomcat7-maven-plugin%20-->

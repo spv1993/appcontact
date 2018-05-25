@@ -18,20 +18,21 @@ import edu.springproject.appcontact.model.Contact;
 import edu.springproject.appcontact.service.ContactService;
 
 @RestController
-@RequestMapping("/api")
 @CrossOrigin("*")
+@RequestMapping("/api")
+//@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class ContactRestController {
 
 	@Autowired
 	ContactService service;
 
 	@GetMapping("/contacts")
-	public List<Contact> contacts() {
+	public List<Contact> getContacts() {
 		return service.getContacts();
 	}
 
 	@GetMapping("/contacts/{contactId}")
-	public Contact contact(@PathVariable("contactId") long contactId)
+	public Contact getContact(@PathVariable("contactId") long contactId)
 			throws ContactNotFoundException {
 		
 		entryIsExists(contactId);
@@ -62,7 +63,7 @@ public class ContactRestController {
 	private void entryIsExists(long contactId) 
 			throws ContactNotFoundException {
 		
-		if(!service.contactIsExists(contactId)) {
+		if(!service.isContactExists(contactId)) {
 			throw new ContactNotFoundException(contactId);
 		}
 	}
