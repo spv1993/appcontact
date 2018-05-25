@@ -9,6 +9,7 @@ public class Contact {
     private String email;
 
     public Contact() {
+    	super();
     }
 
     public Contact(String firstName, String lastName, String phone, String email) {

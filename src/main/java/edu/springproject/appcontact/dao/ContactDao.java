@@ -16,5 +16,5 @@ public interface ContactDao {
 
 	public List<Contact> getContacts();
 	
-	public boolean contactIsExists(long id);
+	public boolean isContactExists(long id);
 }

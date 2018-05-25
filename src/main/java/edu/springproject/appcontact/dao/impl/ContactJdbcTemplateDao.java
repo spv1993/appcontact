@@ -1,4 +1,4 @@
-package edu.springproject.appcontact.dao;
+package edu.springproject.appcontact.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import edu.springproject.appcontact.dao.ContactDao;
 import edu.springproject.appcontact.model.Contact;
 import edu.springproject.appcontact.utils.ContactMapper;
 
@@ -18,10 +19,15 @@ import edu.springproject.appcontact.utils.ContactMapper;
 public class ContactJdbcTemplateDao implements ContactDao {
 
 	private static final String SQL_SELECT = "SELECT contact_id, first_name, last_name, phone, email FROM contact";
+	
 	private static final String SQL_SELECT_SINGLE = "SELECT contact_id, first_name, last_name, phone, email FROM contact WHERE contact_id=?";
+	
 	private static final String SQL_INSERT = "INSERT INTO contact (first_name, last_name, phone, email) VALUES (?, ?, ?, ?)";
+	
 	private static final String SQL_UPDATE = "UPDATE contact SET first_name=?, last_name=?, phone=?, email=? WHERE contact_id=?";
+	
 	private static final String SQL_DELETE = "DELETE FROM contact WHERE contact_id=?";
+	
 	private static final String SQL_COUNT = "SELECT Count(*) FROM contact WHERE contact_id=?";
 
 	@Autowired
@@ -79,9 +85,9 @@ public class ContactJdbcTemplateDao implements ContactDao {
 	}
 
 	@Override
-	public boolean contactIsExists(long contactId) {
-		Integer entryCount = jdbcTemplate.queryForObject(SQL_COUNT, 
+	public boolean isContactExists(long contactId) {
+		Integer contactCount = jdbcTemplate.queryForObject(SQL_COUNT, 
 				Integer.class, contactId);
-		return entryCount != null && entryCount > 0;
+		return contactCount != null && contactCount > 0;
 	}
 }

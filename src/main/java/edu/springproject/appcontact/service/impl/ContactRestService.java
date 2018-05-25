@@ -1,4 +1,4 @@
-package edu.springproject.appcontact.service;
+package edu.springproject.appcontact.service.impl;
 
 import java.util.List;
 
@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 
 import edu.springproject.appcontact.dao.ContactDao;
 import edu.springproject.appcontact.model.Contact;
+import edu.springproject.appcontact.service.ContactService;
 
 @Service
-public class ContactDefaultService implements ContactService {
+public class ContactRestService implements ContactService {
 
 	@Autowired
 	ContactDao dao;
@@ -40,7 +41,7 @@ public class ContactDefaultService implements ContactService {
 	}
 
 	@Override
-	public boolean contactIsExists(long id) {
-		return dao.contactIsExists(id);
+	public boolean isContactExists(long id) {
+		return dao.isContactExists(id);
 	}
 }

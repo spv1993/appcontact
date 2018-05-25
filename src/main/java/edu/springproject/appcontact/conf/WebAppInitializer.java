@@ -1,39 +1,35 @@
 package edu.springproject.appcontact.conf;
 
-import javax.servlet.FilterRegistration;
+import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
- 
-import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.servlet.DispatcherServlet;
- 
+
+import org.springframework.context.annotation.Configuration;
+
+import edu.springproject.appcontact.conf.security.SecurityConfig;
+
+@Configuration
 public class WebAppInitializer implements WebApplicationInitializer {
- 
+
+    private static final String DISPATCHER_SERVLET_NAME = "dispatcher";
+
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
+        AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
         
-    	// Create ApplicationContext
-    	AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
-        appContext.register(AppContextConfig.class);
- 
-        // Add the servlet mapping manually and make it initialize automatically
-        // Dispatcher Servlet
-        DispatcherServlet dispatcher = new DispatcherServlet(appContext);
-        ServletRegistration.Dynamic servlet = servletContext.addServlet("SpringDispatcher", dispatcher);
+        ctx.register(WebConfig.class);
+        ctx.register(SecurityConfig.class);
+        servletContext.addListener(new ContextLoaderListener(ctx));
 
+        ctx.setServletContext(servletContext);
+
+        ServletRegistration.Dynamic servlet = servletContext.addServlet(DISPATCHER_SERVLET_NAME, new DispatcherServlet(ctx));
         servlet.addMapping("/");
-        servlet.setAsyncSupported(true);
         servlet.setLoadOnStartup(1);
-        
-        // UTF8 Charactor Filter.
-        FilterRegistration.Dynamic fr = servletContext.addFilter("encodingFilter", CharacterEncodingFilter.class);
- 
-        fr.setInitParameter("encoding", "UTF-8");
-        fr.setInitParameter("forceEncoding", "true");
-        fr.addMappingForUrlPatterns(null, true, "/*");         
     }
- 
 }

@@ -51,17 +51,17 @@ export class ContactEditComponent implements OnInit {
   }
 
   save(contact: Contact) {
-	console.log("save");
-	console.log(contact);
+		console.log("save");
+		console.log(contact);
     this.contactService.save(contact).subscribe(result => {
       this.gotoList();
     }, error => console.error(error));
   }
 
-  remove(contactId) {
+  remove(id) {
     console.log("remove id");
-	console.log(contactId);
-    this.contactService.remove(contactId).subscribe(result => {
+		console.log(id);
+    this.contactService.remove(id).subscribe(result => {
       this.gotoList();
     }, error => console.error(error));
   }

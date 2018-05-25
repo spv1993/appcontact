@@ -9,12 +9,12 @@ export class ContactService {
 
   public API_URL = '//localhost:8080';
   public CONTACT_API_URL = this.API_URL + '/api/contacts';
-  
+	
   constructor(private http: HttpClient) {
   }
   
   getContacts(): Observable<Contact[]> {
-	return this.http.get<Contact[]>(this.CONTACT_API_URL);
+		return this.http.get<Contact[]>(this.CONTACT_API_URL);
   }
   
   get(id: string): Observable<Contact> {

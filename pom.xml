@@ -19,7 +19,8 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     
     <springframework.version>4.3.1.RELEASE</springframework.version>
-    <org.springframework.security.version>3.2.3.RELEASE</org.springframework.security.version>
+    <springsecurity.version>4.1.1.RELEASE</springsecurity.version>
+    <springsecurityoauth2.version>2.0.10.RELEASE</springsecurityoauth2.version>
   </properties>
 
 	
@@ -63,13 +64,6 @@
 		<version>9.0.2</version>
 	</dependency>
     
-    <!-- Использование Тегов -->
-	<dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>jstl</artifactId>
-        <version>1.2</version>
-    </dependency>
-    
     <!-- Servlet API для tomcat -->
     <dependency>
         <groupId>javax.servlet</groupId>
@@ -77,14 +71,6 @@
         <version>3.1.0</version>
         <scope>provided</scope>
     </dependency>
-    
-    <!-- JavaServer Pages API для tomcat -->
-    <dependency>
-         <groupId>javax.servlet.jsp</groupId>
-         <artifactId>jsp-api</artifactId>
-         <version>2.2</version>
-         <scope>provided</scope>
-     </dependency>
 	
 	<!-- Конвертирование ответа в Json -->
 	<dependency>
@@ -101,10 +87,30 @@
 		<scope>test</scope>
     </dependency>
     
+    <!-- Spring Security -->
+    <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-web</artifactId>
+        <version>${springsecurity.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+        <version>${springsecurity.version}</version>
+    </dependency>
+    
+    <!-- JSON Web Token Support -->
+    <dependency>
+		<groupId>io.jsonwebtoken</groupId>
+		<artifactId>jjwt</artifactId>
+		<version>0.7.0</version>
+	</dependency>
+    
   </dependencies>
 
   <build>
     <finalName>appcontact</finalName>
+    
     <plugins>
         <!-- Config: Maven Tomcat Plugin -->
         <!-- http://mvnrepository.com/artifact/org.apache.tomcat.maven/tomcat7-maven-plugin%20-->
