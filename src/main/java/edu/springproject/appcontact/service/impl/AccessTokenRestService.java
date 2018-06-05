@@ -13,20 +13,11 @@ import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
 
-import edu.springproject.appcontact.exception.AccessTokenException;
 import edu.springproject.appcontact.model.AccessToken;
 import edu.springproject.appcontact.model.User;
 import edu.springproject.appcontact.service.AccessTokenService;
-import edu.springproject.appcontact.service.UserService;
 
 @Service
 public class AccessTokenRestService implements AccessTokenService {
@@ -41,7 +32,7 @@ public class AccessTokenRestService implements AccessTokenService {
 	}
 	
 	@Override
-	public AccessToken getAccessToken(User user) throws AccessTokenException {
+	public AccessToken getAccessToken(User user) {
 		final Date now = new Date();
 
         Claims claims = Jwts.claims().setSubject(user.getUsername());
@@ -61,8 +52,7 @@ public class AccessTokenRestService implements AccessTokenService {
 	}	
 	
 	@Override
-	public Boolean verifyAccessToken(String token, User user) 
-			throws AccessTokenException {		
+	public Boolean verifyAccessToken(String token, User user) {		
 		
 		if(token == null || user == null) {
 			return false;
@@ -101,8 +91,7 @@ public class AccessTokenRestService implements AccessTokenService {
 		
 	}
 	
-	public Date getExpirationFromToken(String token) 
-			throws AccessTokenException {
+	public Date getExpirationFromToken(String token) {
 		
 		return this.parseTokenBody(token).getExpiration();
 	}
@@ -113,8 +102,7 @@ public class AccessTokenRestService implements AccessTokenService {
 	}
 	
 	@Override
-	public String getUsernameFromToken(String token) 
-			throws AccessTokenException {
+	public String getUsernameFromToken(String token) {
 				
 		Claims body;
 		

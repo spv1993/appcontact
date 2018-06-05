@@ -17,24 +17,38 @@ public class UserWithRoleMapper implements ResultSetExtractor<User> {
 	public User extractData(ResultSet rs) 
 			throws SQLException, DataAccessException {
 		
-		Long userId = null;
-		String username = null;
-		String password = null;
+		if (!rs.isBeforeFirst() ) {    
+		    return null;
+		} 
 		
+//		rs.first();
+		
+		Long userId = rs.getLong("user_id");
+		String username = rs.getString("username");
+		String password = rs.getString("password");
+		System.out.println("<------------RS---------->");
+//		if (!rs.isBeforeFirst() ) {    
+//		    return null;
+//		} 
+		System.out.println(rs.getLong("user_id"));
+		System.out.println(rs.getString("username"));
+		System.out.println(rs.getString("password"));
+		System.out.println("<------------RS---------->");
 		Set<Role> roles = new HashSet<Role>();
 		while (rs.next()) {
+			System.out.println("<----------------------->");
 			userId = rs.getLong("user_id");
 			username = rs.getString("username");
 			password = rs.getString("password");
-			try {
-				roles.add(new Role(rs.getString("role")));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				roles.add(new Role());
-			}
+			roles.add(new Role(rs.getString("role")));
+			
+			System.out.println(userId);
+			System.out.println(username);
+			System.out.println(password);
+			System.out.println(new User(userId, username, password, roles));
+			System.out.println("<----------------------->");
 		}
-		
+
 		return new User(userId, username, password, roles);
 	}
 

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.springproject.appcontact.exception.ContactNotFoundException;
 import edu.springproject.appcontact.model.Contact;
 import edu.springproject.appcontact.service.ContactService;
 
@@ -32,8 +31,7 @@ public class ContactRestController {
 	}
 
 	@GetMapping("/contacts/{contactId}")
-	public Contact getContact(@PathVariable("contactId") long contactId)
-			throws ContactNotFoundException {
+	public Contact getContact(@PathVariable("contactId") long contactId) {
 		
 		entryIsExists(contactId);
 		return service.getContact(contactId);
@@ -45,26 +43,23 @@ public class ContactRestController {
 	}
 
 	@PutMapping("/contacts/{contactId}")
-	public void updateContact(@RequestBody Contact contact)
-			throws ContactNotFoundException {
+	public void updateContact(@RequestBody Contact contact) {
 		
 		entryIsExists(contact.getId());
 		service.updateContact(contact);
 	}
 
 	@DeleteMapping("contacts/{contactId}")
-	public void deleteContact(@PathVariable("contactId") long contactId)
-			throws ContactNotFoundException {
+	public void deleteContact(@PathVariable("contactId") long contactId) {
 		
 		entryIsExists(contactId);
 		service.removeContact(contactId);
 	}
 
-	private void entryIsExists(long contactId) 
-			throws ContactNotFoundException {
+	private void entryIsExists(long contactId) {
 		
 		if(!service.isContactExists(contactId)) {
-			throw new ContactNotFoundException(contactId);
+			throw new RuntimeException(Long.toString(contactId));
 		}
 	}
 }
