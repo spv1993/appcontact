@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExeptionHandlerController {
 
-	@ExceptionHandler
-    ResponseEntity<ContactNotFoundException> ContactExceptionHandle(Exception ex) {
-		String msg = ex.getLocalizedMessage();
-		ContactNotFoundException body = new ContactNotFoundException(msg);
-        HttpStatus responseStatus = resolveAnnotatedResponseStatus(ex);
-        return new ResponseEntity<ContactNotFoundException>(body, responseStatus);
-    }
+//	@ExceptionHandler
+//    ResponseEntity<ContactNotFoundException> ContactExceptionHandle(Exception ex) {
+//		String msg = ex.getLocalizedMessage();
+//		ContactNotFoundException body = new ContactNotFoundException(msg);
+//        HttpStatus responseStatus = resolveAnnotatedResponseStatus(ex);
+//        return new ResponseEntity<ContactNotFoundException>(body, responseStatus);
+//    }
     
 //	@ExceptionHandler
 //    @ResponseBody

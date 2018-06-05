@@ -14,7 +14,7 @@ import edu.springproject.appcontact.model.User;
 import edu.springproject.appcontact.dao.UserDao;
 import edu.springproject.appcontact.service.UserService;
 
-@Service(value = "userDetailsService")
+@Service
 public class UserRestService implements UserService {
 
 	@Autowired

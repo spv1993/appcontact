@@ -29,6 +29,10 @@ export class AuthService {
 	setToken(token: string): void {
     localStorage.setItem(TOKEN_NAME, token);
   }
+	
+	removeToken(): void {
+    localStorage.removeItem(TOKEN_NAME);
+  }
 
   isTokenValid(token?: string): boolean {
     if(this.getToken()) {
@@ -60,9 +64,11 @@ export class AuthService {
 	logout() {
 		return this.http.get<any>(this.LOGOUT_API_URL, { headers: this.headers })
 			.subscribe(response => {
-				localStorage.removeItem(TOKEN_NAME);
+				this.removeToken();
 				this.router.navigate(['signin']);
-			}, error => {});
+			}, error => {
+				console.log(error);
+			});
 		
 	}
 	

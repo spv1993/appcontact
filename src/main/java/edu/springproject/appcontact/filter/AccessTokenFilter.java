@@ -12,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import edu.springproject.appcontact.exception.AccessTokenException;
 import edu.springproject.appcontact.service.AccessTokenService;
 import edu.springproject.appcontact.service.AuthService;
 
@@ -33,7 +32,7 @@ public class AccessTokenFilter extends OncePerRequestFilter {
 		
 		try {	    	
 			authService.authenticateByToken(request);   	
-	    } catch(AccessTokenException ex) {
+	    } catch(Exception ex) {
 	    	response.sendError(HttpServletResponse.SC_UNAUTHORIZED, 
 	    			ex.getLocalizedMessage());
             return;
